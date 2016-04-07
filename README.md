@@ -6,9 +6,9 @@ In case of a grid field type it uses all the rows from the field.
 
 ## Usage
 ```
-{exp:all_values:field field_name="field"}
-	{field}
-{/exp:all_values:field}
+{ exp:all_values:field field_name="field" }
+	{ field }
+{ /exp:all_values:field }
 ```
 
 ## Parameters
