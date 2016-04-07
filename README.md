@@ -4,8 +4,6 @@ ExpressionEngine all values plugin
 With this plugin you can use all unique values of a specific custom channel field in your templates.
 In case of a grid field type it uses all the rows from the field.
 
-With this plugin you can, for example, populate a dropdown field with all the unique values of a specific grid field.
-
 ## Usage
 ```
 {exp:all_values:field field_name="field"}
