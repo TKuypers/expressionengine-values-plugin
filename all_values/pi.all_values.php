@@ -53,9 +53,7 @@ class All_values {
 				$field_type = $field->field_type;
 
 	    		$orderby    = ($orderby == 'default') ? ($field_type == 'grid') ? 'row_order' : $field_name : $orderby;
-
-	    		$sort_binds = array($orderby, $sort, $offset, $limit);
-	    		$sort_query = "ORDER BY ? ? LIMIT ? ?";
+	    		$sort_query = "ORDER BY $orderby $sort LIMIT $offset,$limit";
 
 	    		if($field_type == 'grid')
 				{
@@ -80,8 +78,8 @@ class All_values {
 				    	$col_name      = $row->col_name;
 				    	$col_type      = $row->col_type;
 				    	$col_name_type = $col_name.'_type';
-				    	$select[] = "columns.col_id_$col_id AS $col_name, '$col_type' AS $col_name_type";
-				    	$group[]  = "$col_name";
+				    	$select[]      = "columns.col_id_$col_id AS $col_name, '$col_type' AS $col_name_type";
+				    	$group[]       = "$col_name";
 				    }
 
 				    $select_str = implode(',', $select);
@@ -91,7 +89,7 @@ class All_values {
 
 				    		  FROM exp_channel_grid_field_$field_id AS columns 
 
-				    		  GROUP BY $group_str ";
+				    		  GROUP BY LOWER($group_str) ";
 				}
 				else
 				{
@@ -105,11 +103,11 @@ class All_values {
 
 					  		  WHERE field.field_id=$field_id 
 
-					  		  GROUP BY $field_name ";
+					  		  GROUP BY LOWER($field_name) ";
 				}
 
 				$query  .= $sort_query;
-				$results = ee()->db->query($query, $sort_query)->result_array();
+				$results = ee()->db->query($query)->result_array();
 
 				// loop trough the results
 				foreach($results as $result)
